@@ -20,6 +20,15 @@ class TransactionService
     end
   end
 
+  def update(transaction_params, transaction_id)
+    @transaction = Transaction.find(transaction_id)
+    if @transaction.update(transaction_params)
+        @transaction
+    else
+        @transaction = nil
+    end  
+  end
+
   private
   def transaction_publisher(transaction)
     @transaction_publisher ||= TransactionPublisher.new(transaction)

@@ -22,6 +22,15 @@ class TransactionsController < ApplicationController
         end
     end
 
+    def update
+        transaction = transaction_service.update(transaction_params, params[:id])
+        if transaction.nil?
+            render json: { error: "Transaction not updated" }, status: 422
+        else
+            render json: transaction
+        end
+    end
+
     private
     def transaction_params
         params.require(:transaction).permit(:customer_id, :input_amount, :input_currency, :output_amount, :output_currency)
